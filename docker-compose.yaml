@@ -1,0 +1,34 @@
+version: "3"
+services:
+  dev:
+#    container_name: nestjs_api_dev
+    image: nestjs-api-dev:1.0.0
+    build:
+#      context: .
+#      target: development
+      dockerfile: ./Dockerfile
+    command: yarn start yarn add @nestjs/bull
+    ports:
+      - 3000:3000
+      - 9229:9229
+#    networks:
+#      - nesjs-network
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+  redis-svc:
+    image: "redis:6.2.2"
+#    ports:
+#      - "6379:6379"
+    volumes:
+      - "/Users/david.ferdinand/TEMP/dbox/node_modules/.tmp/redis:/data"
+  database-svc:
+    image: "mariadb:10.5"
+#    ports:
+#      - "3306:3306"
+    volumes:
+      - "/Users/david.ferdinand/TEMP/dbox/node_modules/.tmp/mariadb:/var/lib/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_PASSWORD}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"

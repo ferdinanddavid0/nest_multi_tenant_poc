@@ -18,11 +18,7 @@ import { MultiTenantService } from '../core/multi-tenant/multi-tenant.service';
   path: '/api'
 })
 export class ApiController {
-  constructor(
-    public readonly locale: LocaleService,
-    private readonly cipherSuite: RollingKeyEncryptionService,
-    private readonly userService: UserService
-  ) {}
+  constructor(public readonly locale: LocaleService, private readonly cipherSuite: RollingKeyEncryptionService, private readonly userService: UserService) {}
 
   @Get('/')
   async getIndex(): Promise<any> {
